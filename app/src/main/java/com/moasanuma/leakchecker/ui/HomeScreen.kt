@@ -21,9 +21,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(navController: NavController) {
     var pass by remember { mutableStateOf("") }
     Surface {
         Column(
@@ -64,5 +66,5 @@ fun HomeScreen() {
 @Preview
 @Composable
 fun PreviewHomeScreen() {
-    HomeScreen()
+    HomeScreen(rememberNavController())
 }
