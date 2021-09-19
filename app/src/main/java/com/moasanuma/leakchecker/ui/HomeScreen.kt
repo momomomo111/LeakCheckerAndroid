@@ -21,11 +21,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.moasanuma.leakchecker.viewmodel.PassViewModel
 
 @Composable
-fun HomeScreen(navController: NavController) {
+fun HomeScreen(navController: NavController, passViewModel: PassViewModel = viewModel()) {
     var pass by remember { mutableStateOf("") }
     Surface {
         Column(
@@ -47,12 +50,13 @@ fun HomeScreen(navController: NavController) {
                 label = { Text("パスワード") }
             )
             Spacer(modifier = Modifier.height(32.dp))
-            Button(onClick = { /*TODO*/ }) {
+            Button(onClick = { passViewModel.getPassProperties(pass) }) {
                 Text(
                     text = "調べる",
                     style = typography.h5
                 )
             }
+            Text(text = passViewModel.properties.value?:"")
             Spacer(modifier = Modifier.height(64.dp))
             Text(
                 text = "※パスワードは暗号化されて\nから送信されます",
