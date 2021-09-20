@@ -10,6 +10,6 @@ import com.moasanuma.leakchecker.ui.HomeScreen
 fun NavGraph() {
     val navController = rememberNavController()
     NavHost(navController, startDestination = "home") {
-        composable("home") { HomeScreen(navController) }
+        composable("home") { HomeScreen(navController = navController) }
     }
 }
