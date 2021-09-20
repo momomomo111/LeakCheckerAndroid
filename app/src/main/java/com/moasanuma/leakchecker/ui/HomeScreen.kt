@@ -51,7 +51,7 @@ fun HomeScreen(navController: NavController, passViewModel: PassViewModel = view
                 label = { Text("パスワード") }
             )
             Spacer(modifier = Modifier.height(32.dp))
-            Button(onClick = { passViewModel.getLeakPassList() }) {
+            Button(onClick = { passViewModel.getLeakPassList(pass) }) {
                 Text(
                     text = "調べる",
                     style = typography.h5

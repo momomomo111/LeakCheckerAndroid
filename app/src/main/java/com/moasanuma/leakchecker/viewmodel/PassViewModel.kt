@@ -15,14 +15,14 @@ class PassViewModel : ViewModel() {
         get() = _response
 
     init {
-        getLeakPassList()
+        getLeakPassList("")
     }
 
-    fun getLeakPassList() {
+    fun getLeakPassList(pass: String = "AD099") {
         viewModelScope.launch {
             try {
-                val result = Api.retrofitService.getLeakPassProperties()
-                _response.value = "Success: $result Mars properties retrieved"
+                val result = Api.retrofitService.getLeakPassProperties(pass)
+                _response.value = result
                 Log.d("test", "success$result")
             } catch (e: Exception) {
                 _response.value = "Failure: ${e.message}"
