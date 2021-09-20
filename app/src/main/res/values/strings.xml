@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">LeakChecker</string>
+    <string name="leak_num">件</string>
+    <string name="detecting_threats">の脅威が発見されました</string>
 </resources>
