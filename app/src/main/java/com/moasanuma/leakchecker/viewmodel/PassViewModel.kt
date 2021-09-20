@@ -1,6 +1,5 @@
 package com.moasanuma.leakchecker.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,9 +11,9 @@ import kotlinx.coroutines.launch
 
 class PassViewModel : ViewModel() {
 
-    private val _response = MutableLiveData<String>()
-    val response: LiveData<String>
-        get() = _response
+    private val _leakNum = MutableLiveData<Int>()
+    val leakNum: LiveData<Int>
+        get() = _leakNum
 
     init {
         getLeakPassList("")
@@ -26,12 +25,10 @@ class PassViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val leakPass = Api.retrofitService.getLeakPassProperties(headPass)
-                val findLeakNum = findMeLeak(hashPass, leakPass).toString()
-                _response.value = findLeakNum.also {
-                    Log.d("test", "findnum$it")
-                }
+                val findLeakNum = findMeLeak(hashPass, leakPass)
+                _leakNum.value = findLeakNum
             } catch (e: Exception) {
-                _response.value = "Failure: ${e.message}"
+                _leakNum.value = -1
             }
         }
     }

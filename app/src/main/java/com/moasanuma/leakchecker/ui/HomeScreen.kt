@@ -23,11 +23,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.moasanuma.leakchecker.R
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -43,7 +45,7 @@ fun HomeScreen(navController: NavController) {
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "調べたいパスワードを\n入力してください",
+                text = stringResource(R.string.search_pass_input_msg),
                 style = typography.h5
             )
             Spacer(modifier = Modifier.height(32.dp))
@@ -51,13 +53,13 @@ fun HomeScreen(navController: NavController) {
                 value = pass,
                 onValueChange = { pass = it },
                 singleLine = true,
-                label = { Text("パスワード") },
+                label = { Text(stringResource(R.string.password)) },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
             )
             Spacer(modifier = Modifier.height(16.dp))
             AnimatedVisibility(errorPass) {
                 Text(
-                    "パスワードが入力されていません",
+                    stringResource(R.string.pass_error_msg),
                     color = MaterialTheme.colors.error,
                     style = typography.h6,
                 )
@@ -70,13 +72,13 @@ fun HomeScreen(navController: NavController) {
                 }
             ) {
                 Text(
-                    text = "調べる",
+                    text = stringResource(R.string.search),
                     style = typography.h5
                 )
             }
             Spacer(modifier = Modifier.height(64.dp))
             Text(
-                text = "※パスワードは暗号化されて\nから送信されます",
+                text = stringResource(R.string.pass_encryption_msg),
                 style = typography.h6,
                 color = Color.Gray
             )
