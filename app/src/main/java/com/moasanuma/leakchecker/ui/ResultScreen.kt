@@ -31,7 +31,7 @@ fun ResultScreen(
     if (pass != null) {
         passViewModel.getLeakPassList(pass)
     }
-    val result: String by passViewModel.response.observeAsState("")
+    val result: Int by passViewModel.leakNum.observeAsState(0)
     Surface {
         Column(
             modifier = Modifier
@@ -40,21 +40,27 @@ fun ResultScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Row(verticalAlignment = Alignment.Bottom) {
+            if (result == -1) {
                 Text(
-                    text = result,
-                    style = typography.h2
+                    text = stringResource(R.string.communication_error_messages),
+                    style = typography.h5
                 )
+            } else {
+                Row(verticalAlignment = Alignment.Bottom) {
+                    Text(
+                        text = result.toString(),
+                        style = typography.h2
+                    )
+                    Text(
+                        text = stringResource(R.string.leak_num),
+                        style = typography.h4
+                    )
+                }
                 Text(
-                    text = stringResource(R.string.leak_num),
-                    style = typography.h4
+                    text = stringResource(R.string.detecting_threats),
+                    style = typography.h5
                 )
             }
-
-            Text(
-                text = stringResource(R.string.detecting_threats),
-                style = typography.h5
-            )
         }
     }
 }
