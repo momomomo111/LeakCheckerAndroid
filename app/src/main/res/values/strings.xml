@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LeakChecker</string>
+    <string name="app_name">漏洩チェック</string>
     <string name="leak_num">件</string>
     <string name="detecting_threats">の脅威が発見されました</string>
     <string name="communication_error_messages">通信状況を確認してください</string>
