@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 
 class PassViewModel : ViewModel() {
 
-    private val _leakNum = MutableLiveData<Int>()
+    private val _leakNum = MutableLiveData(-2)
     val leakNum: LiveData<Int>
         get() = _leakNum
 

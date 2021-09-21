@@ -8,4 +8,6 @@
     <string name="search_pass_input_msg">調べたいパスワードを\n入力してください</string>
     <string name="pass_encryption_msg">※パスワードは暗号化されて\nから送信されます</string>
     <string name="password">パスワード</string>
+    <string name="leak_not_found">脅威は見つかりませんでした</string>
+    <string name="searching_now">検索中...</string>
 </resources>
