@@ -11,13 +11,20 @@ import com.moasanuma.leakchecker.ui.HomeScreen
 import com.moasanuma.leakchecker.ui.ResultScreen
 import com.moasanuma.leakchecker.viewmodel.PassViewModel
 
+object MainDestinations {
+    const val HOME_ROUTE = "home"
+    const val RESULT_ROUTE = "result"
+}
+
 @Composable
 fun NavGraph() {
     val navController = rememberNavController()
-    NavHost(navController, startDestination = "home") {
-        composable("home") { HomeScreen(navController = navController) }
+    NavHost(navController, startDestination = MainDestinations.HOME_ROUTE) {
+        composable(MainDestinations.HOME_ROUTE) {
+            HomeScreen(navController = navController)
+        }
         composable(
-            "result/{pass}",
+            MainDestinations.RESULT_ROUTE + "/{pass}",
             arguments = listOf(
                 navArgument("pass") {
                     type = NavType.StringType
