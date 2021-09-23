@@ -15,7 +15,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.MaterialTheme.typography
-import androidx.compose.material.Surface
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
@@ -37,80 +37,85 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.moasanuma.leakchecker.R
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun HomeScreen(navController: NavController) {
+    Scaffold {
+        HomeContent(navController)
+    }
+}
+
+@OptIn(ExperimentalAnimationApi::class)
+@Composable
+private fun HomeContent(navController: NavController) {
     var pass by remember { mutableStateOf("") }
     var passwordVisibility by remember { mutableStateOf(false) }
     var errorPass by remember { mutableStateOf(false) }
-    Surface {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text = stringResource(R.string.search_pass_input_msg),
-                style = typography.h5
-            )
-            Spacer(modifier = Modifier.height(32.dp))
-            TextField(
-                value = pass,
-                onValueChange = { pass = it },
-                singleLine = true,
-                label = { Text(stringResource(R.string.password)) },
-                visualTransformation = if (passwordVisibility)
-                    VisualTransformation.None else PasswordVisualTransformation(),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                trailingIcon = {
-                    val image = if (passwordVisibility)
-                        painterResource(id = R.drawable.ic_baseline_visibility_24)
-                    else painterResource(id = R.drawable.ic_baseline_visibility_off_24)
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = stringResource(R.string.search_pass_input_msg),
+            style = typography.h5
+        )
+        Spacer(modifier = Modifier.height(32.dp))
+        TextField(
+            value = pass,
+            onValueChange = { pass = it },
+            singleLine = true,
+            label = { Text(stringResource(R.string.password)) },
+            visualTransformation = if (passwordVisibility)
+                VisualTransformation.None else PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            trailingIcon = {
+                val image = if (passwordVisibility)
+                    painterResource(id = R.drawable.ic_baseline_visibility_24)
+                else painterResource(id = R.drawable.ic_baseline_visibility_off_24)
 
-                    IconButton(
-                        onClick = {
-                            passwordVisibility = !passwordVisibility
-                        }
-                    ) {
-                        Icon(
-                            painter = image,
-                            contentDescription = null,
-                            modifier = Modifier
-                                .size(36.dp)
-                                .padding(end = 4.dp)
-                        )
+                IconButton(
+                    onClick = {
+                        passwordVisibility = !passwordVisibility
                     }
+                ) {
+                    Icon(
+                        painter = image,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(36.dp)
+                            .padding(end = 4.dp)
+                    )
                 }
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            AnimatedVisibility(errorPass) {
-                Text(
-                    stringResource(R.string.pass_error_msg),
-                    color = colors.error,
-                    style = typography.h6,
-                )
             }
-            Spacer(modifier = Modifier.height(16.dp))
-            Button(
-                onClick = {
-                    errorPass = !emptyCheck(pass)
-                    if (!errorPass) navController.navigate("result/$pass")
-                }
-            ) {
-                Text(
-                    text = stringResource(R.string.search),
-                    style = typography.h5
-                )
-            }
-            Spacer(modifier = Modifier.height(64.dp))
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        AnimatedVisibility(errorPass) {
             Text(
-                text = stringResource(R.string.pass_encryption_msg),
+                stringResource(R.string.pass_error_msg),
+                color = colors.error,
                 style = typography.h6,
-                color = Color.Gray
             )
         }
+        Spacer(modifier = Modifier.height(16.dp))
+        Button(
+            onClick = {
+                errorPass = !emptyCheck(pass)
+                if (!errorPass) navController.navigate("result/$pass")
+            }
+        ) {
+            Text(
+                text = stringResource(R.string.search),
+                style = typography.h5
+            )
+        }
+        Spacer(modifier = Modifier.height(64.dp))
+        Text(
+            text = stringResource(R.string.pass_encryption_msg),
+            style = typography.h6,
+            color = Color.Gray
+        )
     }
 }
 

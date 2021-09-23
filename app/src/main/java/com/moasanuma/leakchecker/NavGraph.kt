@@ -1,6 +1,7 @@
 package com.moasanuma.leakchecker
 
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -8,6 +9,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.moasanuma.leakchecker.ui.HomeScreen
 import com.moasanuma.leakchecker.ui.ResultScreen
+import com.moasanuma.leakchecker.viewmodel.PassViewModel
 
 @Composable
 fun NavGraph() {
@@ -23,9 +25,10 @@ fun NavGraph() {
                 }
             )
         ) { backStackEntry ->
+            val passViewModel: PassViewModel = viewModel()
             ResultScreen(
-                navController = navController,
-                pass = backStackEntry.arguments?.getString("pass")
+                pass = backStackEntry.arguments?.getString("pass"),
+                passViewModel = passViewModel
             )
         }
     }
