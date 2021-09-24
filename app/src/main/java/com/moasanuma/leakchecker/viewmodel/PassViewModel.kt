@@ -19,10 +19,6 @@ class PassViewModel : ViewModel() {
     private val _status = MutableLiveData<PassApiStatus>()
     val status: LiveData<PassApiStatus> = _status
 
-    init {
-        getLeakPassList("")
-    }
-
     fun getLeakPassList(pass: String) {
         val hashPass = hashSHA1String(pass)
         val headPass = hashPass.take(5)
