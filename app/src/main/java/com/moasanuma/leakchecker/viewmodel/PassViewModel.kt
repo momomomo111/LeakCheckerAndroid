@@ -29,9 +29,9 @@ class PassViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val leakPass = Api.retrofitService.getLeakPassProperties(headPass)
-                _status.value = PassApiStatus.DONE
                 val findLeakNum = findMeLeak(hashPass, leakPass)
                 _leakNum.value = findLeakNum
+                _status.value = PassApiStatus.DONE
             } catch (e: Exception) {
                 _status.value = PassApiStatus.ERROR
             }
