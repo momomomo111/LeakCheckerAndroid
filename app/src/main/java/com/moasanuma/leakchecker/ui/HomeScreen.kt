@@ -4,11 +4,14 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
 import androidx.compose.material.Icon
@@ -18,6 +21,8 @@ import androidx.compose.material.MaterialTheme.typography
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -103,12 +108,24 @@ private fun HomeContent(navController: NavController) {
             onClick = {
                 errorPass = !emptyCheck(pass)
                 if (!errorPass) navController.navigate("result/$pass")
-            }
+            },
+            shape = CircleShape
         ) {
-            Text(
-                text = stringResource(R.string.search),
-                style = typography.h5
-            )
+            Row(
+                modifier = Modifier.padding(4.dp)
+            ) {
+                Text(
+                    text = stringResource(R.string.search),
+                    style = typography.h5
+                )
+                Spacer(modifier = Modifier.width(4.dp))
+                Icon(
+                    imageVector = Icons.Filled.Search,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(36.dp)
+                )
+            }
         }
         Spacer(modifier = Modifier.height(64.dp))
         Text(
