@@ -10,14 +10,14 @@ import com.moasanuma.leakchecker.util.hashSHA1String
 import kotlinx.coroutines.launch
 
 class PassViewModel : ViewModel() {
+    enum class PassApiStatus { LOADING, ERROR, DONE }
 
-    private val _leakNum = MutableLiveData(-2)
+    private val _leakNum = MutableLiveData<Int>()
     val leakNum: LiveData<Int>
         get() = _leakNum
 
-    init {
-        getLeakPassList("")
-    }
+    private val _status = MutableLiveData<PassApiStatus>()
+    val status: LiveData<PassApiStatus> = _status
 
     fun getLeakPassList(pass: String) {
         val hashPass = hashSHA1String(pass)
@@ -27,8 +27,9 @@ class PassViewModel : ViewModel() {
                 val leakPass = Api.retrofitService.getLeakPassProperties(headPass)
                 val findLeakNum = findMeLeak(hashPass, leakPass)
                 _leakNum.value = findLeakNum
+                _status.value = PassApiStatus.DONE
             } catch (e: Exception) {
-                _leakNum.value = -1
+                _status.value = PassApiStatus.ERROR
             }
         }
     }

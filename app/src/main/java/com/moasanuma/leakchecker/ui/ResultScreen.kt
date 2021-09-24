@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.MaterialTheme.typography
-import androidx.compose.material.Surface
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -22,49 +22,59 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.moasanuma.leakchecker.R
 import com.moasanuma.leakchecker.ui.components.WaveAnimation
 import com.moasanuma.leakchecker.viewmodel.PassViewModel
+import com.moasanuma.leakchecker.viewmodel.PassViewModel.PassApiStatus
 
 @Composable
 fun ResultScreen(
-    navController: NavController,
     pass: String?,
     passViewModel: PassViewModel = viewModel()
 ) {
-    if (pass != null) {
-        passViewModel.getLeakPassList(pass)
+    Scaffold {
+        if (pass != null) {
+            passViewModel.getLeakPassList(pass)
+        }
+        val status: PassApiStatus by passViewModel.status.observeAsState(
+            PassApiStatus.LOADING
+        )
+        val result: Int by passViewModel.leakNum.observeAsState(0)
+        ResultContent(
+            result = result,
+            status = status
+        )
     }
-    val result: Int by passViewModel.leakNum.observeAsState(-2)
+}
+
+@Composable
+private fun ResultContent(result: Int, status: PassApiStatus) {
     var waveColor: Color by remember { mutableStateOf(Color.Gray) }
-    Surface {
-        WaveAnimation(Modifier, waveColor, 0.4F)
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            when (result) {
-                -2 -> Text(
-                    text = stringResource(R.string.searching_now),
-                    style = typography.h2
-                )
-                -1 -> Text(
-                    text = stringResource(R.string.communication_error_messages),
-                    style = typography.h5
-                )
-                0 -> {
+    WaveAnimation(Modifier, waveColor, 0.4F)
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        when (status) {
+            PassApiStatus.LOADING -> Text(
+                text = stringResource(R.string.searching_now),
+                style = typography.h2
+            )
+            PassApiStatus.ERROR -> Text(
+                text = stringResource(R.string.communication_error_messages),
+                style = typography.h5
+            )
+            PassApiStatus.DONE -> {
+                if (result == 0) {
                     Text(
                         text = stringResource(R.string.leak_not_found),
                         style = typography.h5
                     )
                     waveColor = colors.secondary
-                }
-                else -> {
+                } else {
                     Row(verticalAlignment = Alignment.Bottom) {
                         Text(
                             text = result.toString(),
@@ -89,5 +99,5 @@ fun ResultScreen(
 @Preview
 @Composable
 private fun PreviewResultScreen() {
-    ResultScreen(rememberNavController(), "")
+    ResultScreen("")
 }
