@@ -25,6 +25,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.moasanuma.leakchecker.R
 import com.moasanuma.leakchecker.ui.components.WaveAnimation
 import com.moasanuma.leakchecker.viewmodel.PassViewModel
+import com.moasanuma.leakchecker.viewmodel.PassViewModel.PassApiStatus
 
 @Composable
 fun ResultScreen(
@@ -35,13 +36,19 @@ fun ResultScreen(
         if (pass != null) {
             passViewModel.getLeakPassList(pass)
         }
-        val result: Int by passViewModel.leakNum.observeAsState(-2)
-        ResultContent(result)
+        val status: PassApiStatus by passViewModel.status.observeAsState(
+            PassApiStatus.LOADING
+        )
+        val result: Int by passViewModel.leakNum.observeAsState(0)
+        ResultContent(
+            result = result,
+            status = status
+        )
     }
 }
 
 @Composable
-private fun ResultContent(result: Int) {
+private fun ResultContent(result: Int, status: PassApiStatus) {
     var waveColor: Color by remember { mutableStateOf(Color.Gray) }
     WaveAnimation(Modifier, waveColor, 0.4F)
     Column(
@@ -51,38 +58,39 @@ private fun ResultContent(result: Int) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        when (result) {
-            -2 -> Text(
+        when (status) {
+            PassApiStatus.LOADING -> Text(
                 text = stringResource(R.string.searching_now),
                 style = typography.h2
             )
-            -1 -> Text(
+            PassApiStatus.ERROR -> Text(
                 text = stringResource(R.string.communication_error_messages),
                 style = typography.h5
             )
-            0 -> {
-                Text(
-                    text = stringResource(R.string.leak_not_found),
-                    style = typography.h5
-                )
-                waveColor = colors.secondary
-            }
-            else -> {
-                Row(verticalAlignment = Alignment.Bottom) {
+            PassApiStatus.DONE -> {
+                if (result == 0) {
                     Text(
-                        text = result.toString(),
-                        style = typography.h2
+                        text = stringResource(R.string.leak_not_found),
+                        style = typography.h5
                     )
+                    waveColor = colors.secondary
+                } else {
+                    Row(verticalAlignment = Alignment.Bottom) {
+                        Text(
+                            text = result.toString(),
+                            style = typography.h2
+                        )
+                        Text(
+                            text = stringResource(R.string.leak_num),
+                            style = typography.h4
+                        )
+                    }
                     Text(
-                        text = stringResource(R.string.leak_num),
-                        style = typography.h4
+                        text = stringResource(R.string.detecting_threats),
+                        style = typography.h5
                     )
+                    waveColor = colors.error
                 }
-                Text(
-                    text = stringResource(R.string.detecting_threats),
-                    style = typography.h5
-                )
-                waveColor = colors.error
             }
         }
     }
