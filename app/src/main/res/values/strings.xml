@@ -2,13 +2,13 @@
 <resources>
     <string name="app_name">Leak Check</string>
     <string name="leak_num" />
-    <string name="detecting_threats">threats have been discovered.</string>
+    <string name="detecting_threats">leak have been discovered.</string>
     <string name="communication_error_messages">Please check the communication status.</string>
     <string name="pass_error_msg">Password is not entered.</string>
     <string name="search">Search</string>
     <string name="search_pass_input_msg">Please enter the password \nyou want to look up.</string>
     <string name="pass_encryption_msg">※Passwords will be encrypted.</string>
     <string name="password">Password</string>
-    <string name="leak_not_found">No threats found.</string>
+    <string name="leak_not_found">No leak found.</string>
     <string name="searching_now">Searching…</string>
 </resources>
