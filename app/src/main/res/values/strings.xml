@@ -7,7 +7,7 @@
     <string name="pass_error_msg">Password is not entered.</string>
     <string name="search">Search</string>
     <string name="search_pass_input_msg">Please enter the password \nyou want to look up.</string>
-    <string name="pass_encryption_msg">※Passwords will be encrypted \nbefore being sent.</string>
+    <string name="pass_encryption_msg">※Passwords will be encrypted.</string>
     <string name="password">Password</string>
     <string name="leak_not_found">No threats found.</string>
     <string name="searching_now">Searching…</string>

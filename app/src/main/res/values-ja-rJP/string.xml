@@ -7,7 +7,7 @@
     <string name="pass_error_msg">パスワードが入力されていません</string>
     <string name="search">調べる</string>
     <string name="search_pass_input_msg">調べたいパスワードを\n入力してください</string>
-    <string name="pass_encryption_msg">※パスワードは暗号化されて\nから送信されます</string>
+    <string name="pass_encryption_msg">※パスワードは暗号化されます</string>
     <string name="password">パスワード</string>
     <string name="leak_not_found">脅威は見つかりませんでした</string>
     <string name="searching_now">検索中…</string>
