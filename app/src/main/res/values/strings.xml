@@ -1,13 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">漏洩チェック</string>
-    <string name="leak_num">件</string>
-    <string name="detecting_threats">の脅威が発見されました</string>
-    <string name="communication_error_messages">通信状況を確認してください</string>
-    <string name="pass_error_msg">パスワードが入力されていません</string>
-    <string name="search">調べる</string>
-    <string name="search_pass_input_msg">調べたいパスワードを\n入力してください</string>
-    <string name="pass_encryption_msg">※パスワードは暗号化されて\nから送信されます</string>
-    <string name="password">パスワード</string>
-    <string name="leak_not_found">脅威は見つかりませんでした</string>
-    <string name="searching_now">検索中...</string>
+    <string name="app_name">Leak Check</string>
+    <string name="leak_num" />
+    <string name="detecting_threats">threats have been discovered.</string>
+    <string name="communication_error_messages">Please check the communication status.</string>
+    <string name="pass_error_msg">Password is not entered.</string>
+    <string name="search">Search</string>
+    <string name="search_pass_input_msg">Please enter the password \nyou want to look up.</string>
+    <string name="pass_encryption_msg">※Passwords will be encrypted \nbefore being sent.</string>
+    <string name="password">Password</string>
+    <string name="leak_not_found">No threats found.</string>
+    <string name="searching_now">Searching…</string>
 </resources>
