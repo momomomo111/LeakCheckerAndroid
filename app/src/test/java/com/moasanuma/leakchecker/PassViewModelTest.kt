@@ -15,6 +15,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnit
+import org.mockito.junit.MockitoRule
 import org.mockito.kotlin.any
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.stub
@@ -27,7 +28,7 @@ class PassViewModelTest {
     val instantExecutorRule = InstantTaskExecutorRule()
 
     @get:Rule
-    val mockitoRule = MockitoJUnit.rule()
+    val mockitoRule: MockitoRule = MockitoJUnit.rule()
 
     private val testDispatcher = TestCoroutineDispatcher()
 
